@@ -1,0 +1,13 @@
+{
+  "name": "mobx-firestore",
+  "version": "0.0.1",
+  "description": "Firebase bindings in mobx stores",
+  "main": "src/index.js",
+  "devDependencies": {
+    "documentation": "^4.0.0-beta11",
+    "eslint": "^3.9.0",
+    "eslint-plugin-node": "^2.1.3"
+  },
+  "author": "agon_bina@hotmail.com",
+  "license": "MIT"
+}
