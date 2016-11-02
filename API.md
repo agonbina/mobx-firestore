@@ -21,15 +21,25 @@ Create a store instance.
 
 ## bindValue
 
-Bind a remote Firebase reference.
+Bind a remote Firebase reference as a mobx Map.
 
 **Parameters**
 
--   `key` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** \-
--   `getRef` **(FirebaseReference | [Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function))** a reference or a function that returns a reference
--   `ref`  
+-   `key` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** the attribute name to bind the Value instance to
+-   `ref` **(FirebaseReference | [Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function))** a reference or a function that returns a reference
 
 Returns **Value** an observable instance of Value
+
+## bindArray
+
+Bind a remote Firebase reference as a mobx Array.
+
+**Parameters**
+
+-   `key` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** the attribute name to bind the List instance to
+-   `ref` **(FirebaseReference | [Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function))** a reference or a function that returns a reference
+
+Returns **List** 
 
 ## unbind
 

@@ -9,6 +9,7 @@ const store = new FirebaseStore(ref)
 
 global.profile = store.bindValue('profile', ref.child('profile'))
 global.name = store.bindValue('name', ref.child('name'))
+global.subscriptions = store.bindArray('subscriptions', ref.child('subscriptions'))
 global.store = store
 
 render(

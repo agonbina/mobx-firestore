@@ -1,13 +1,6 @@
 import Value from './value'
+import List from './list'
 import { isFunction, forOwn } from 'lodash'
-
-function getRef (root, ref) {
-  if (isFunction(ref)) {
-    return ref(root)
-  } else {
-    return ref
-  }
-}
 
 /**
  * A mobx store able to bind to Firebase references
@@ -32,9 +25,9 @@ class FirebaseStore {
   }
 
   /**
-  * Bind a remote Firebase reference.
-  * @param {string} key -
-  * @param {FirebaseReference|Function} getRef a reference or a function that returns a reference
+  * Bind a remote Firebase reference as a mobx Map.
+  * @param {string} key the attribute name to bind the Value instance to
+  * @param {FirebaseReference|Function} ref a reference or a function that returns a reference
   * @returns {Value} an observable instance of Value
   */
 
@@ -44,6 +37,22 @@ class FirebaseStore {
     this[key] = value
     value.bind()
     return value
+  }
+
+
+  /**
+   * Bind a remote Firebase reference as a mobx Array.
+   * @param  {string} key the attribute name to bind the List instance to
+   * @param  {FirebaseReference|Function} ref a reference or a function that returns a reference
+   * @return {List}
+   */
+
+  bindArray (key, ref) {
+    const keyRef = getRef(this.root, ref)
+    const list = new List(keyRef)
+    this[key] = list
+    list.bind()
+    return list
   }
 
 
@@ -72,6 +81,14 @@ class FirebaseStore {
     forOwn(this, (value, key) => this[key].unbind())
   }
 
+}
+
+function getRef (root, ref) {
+  if (isFunction(ref)) {
+    return ref(root)
+  } else {
+    return ref
+  }
 }
 
 export default FirebaseStore

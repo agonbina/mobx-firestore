@@ -5,7 +5,7 @@ import DevTools from 'mobx-react-devtools'
 @observer
 class App extends Component {
   render() {
-    const { profile, name } = this.props.store
+    const { profile, name, subscriptions } = this.props.store
     return (
       <div>
         <div>
@@ -14,6 +14,15 @@ class App extends Component {
         <div>
           Username: {profile.get('username')}
         </div>
+        <ul>{
+            subscriptions.map(item => {
+              const key = item.get('.key')
+              return (
+                <li key={key}>{key}: {item.get('frequency')}</li>
+              )
+            })
+          }
+        </ul>
         <DevTools />
       </div>
     )

@@ -1,5 +1,7 @@
-import { action, ObservableMap } from 'mobx'
+import mobx, { action, ObservableMap } from 'mobx'
 import { isObject } from 'lodash'
+
+global.mobx = mobx
 
 class Value extends ObservableMap {
 
