@@ -1,2 +1,2 @@
-export Value from './value'
-export FirebaseStore from './store'
+export { default as Value } from './value'
+export { default as FirebaseStore } from './store'

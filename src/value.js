@@ -1,14 +1,20 @@
 import { action, ObservableMap } from 'mobx'
-import isFunction from 'lodash/is-function'
-import isObject from 'lodash/is-object'
-
+import { isObject } from 'lodash'
 
 class Value extends ObservableMap {
 
-  constructor (ref) {
-    super()
-    this.ref = ref
-    this.bind()
+  static defaults = {
+    '.updating': false,
+    '.removing': false
+  }
+
+  constructor (ref, defaults = {}) {
+    super(Value.defaults)
+    Object.defineProperty(this, 'ref', {
+      value: ref,
+      enumerable: true,
+      writable: false
+    })
   }
 
   @action setValue (value) {
@@ -26,6 +32,33 @@ class Value extends ObservableMap {
     this.subscription = this.ref.on('value', snap => {
       this.setValue(snap.val())
     })
+  }
+
+  @action update (value) {
+    let promise
+    this.set('.updating', true)
+    if (isObject(value)) {
+      promise = this.ref.set(value)
+    } else {
+      promise = this.ref.update(value)
+    }
+    return promise.then(() => {
+      this.set('.updating', false)
+      return Promise.resolve()
+    })
+  }
+
+  @action remove () {
+    this.set('.removing', true)
+    return this.ref.remove().then(() => {
+      this.set('.removing', false)
+      this.unbind()
+      return Promise.resolve()
+    })
+  }
+
+  @action transaction () {
+    // TODO: implement
   }
 
   unbind () {
