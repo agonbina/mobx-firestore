@@ -2,12 +2,14 @@
   "name": "mobx-firestore",
   "version": "0.0.1",
   "description": "Firebase bindings in mobx stores",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "scripts": {
+    "build": "NODE_ENV=production babel src --out-dir lib",
     "docs": "documentation build src/store.js -f md -o API.md",
-    "prepublish": "npm run docs"
+    "prepublish": "npm run build && npm run docs"
   },
   "devDependencies": {
+    "babel-cli": "^6.18.0",
     "babel-core": "^6.9.1",
     "babel-eslint": "^6.1.0",
     "babel-loader": "^6.2.4",
