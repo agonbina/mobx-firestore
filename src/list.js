@@ -1,5 +1,7 @@
-import { action, ObservableArray, asMap } from 'mobx'
+import { action, observable, asMap } from 'mobx'
 import { isFunction, isObject } from 'lodash'
+
+const ObservableArray = observable([]).constructor
 
 class List extends ObservableArray {
 
