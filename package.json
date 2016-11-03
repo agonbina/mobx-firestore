@@ -1,6 +1,6 @@
 {
   "name": "mobx-firestore",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Firebase bindings in mobx stores",
   "main": "lib/index.js",
   "scripts": {
