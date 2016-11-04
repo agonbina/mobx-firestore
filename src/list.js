@@ -24,28 +24,28 @@ class List extends ObservableArray {
       this.clear()
     }
 
-    const onAdd = ref.on('child_added', (snapshot, prevKey) => {
+    const onAdd = ref.on('child_added', action((snapshot, prevKey) => {
       const index = prevKey ? findIndexByKey(this, prevKey) + 1 : 0
       const record = createRecord(snapshot)
       this.splice(index, 0, asMap(record))
-    })
+    }))
 
-    const onRemove = ref.on('child_removed', snapshot => {
+    const onRemove = ref.on('child_removed', action(snapshot => {
       const item = findByKey(this, _getKey(snapshot))
       this.remove(item)
-    })
+    }))
 
-    const onChange = ref.on('child_changed', snapshot => {
+    const onChange = ref.on('child_changed', action(snapshot => {
       const item = findByKey(this, _getKey(snapshot))
       item.merge(createRecord(snapshot))
-    })
+    }))
 
-    const onMove = ref.on('child_moved', (snapshot, prevKey) => {
+    const onMove = ref.on('child_moved', action((snapshot, prevKey) => {
       const index = findIndexByKey(this, _getKey(snapshot))
       const record = this.splice(index, 1)[0]
       const newIndex = prevKey ? findIndexByKey(this, prevKey) + 1 : 0
       this.splice(newIndex, 0, record)
-    })
+    }))
 
     this.subscriptions = {
       child_added: onAdd,
