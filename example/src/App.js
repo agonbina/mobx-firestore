@@ -1,7 +1,16 @@
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
+import { firestore } from '../../src'
 import DevTools from 'mobx-react-devtools'
 
+
+@firestore('store', {
+  key: 'subscriptions',
+  ref: root => root.child('subscriptions')
+}, {
+  key: 'orders',
+  ref: root => root.child('orders')
+})
 @observer
 class App extends Component {
   render() {

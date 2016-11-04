@@ -57,3 +57,15 @@ Returns **void**
 Remove listeners from all firebase references attached to this FirebaseStore instance
 
 Returns **void** 
+
+# firestore
+
+A decorator to inject a FirebaseStore to your component and manage store
+subscriptions(bindings) automatically
+
+**Parameters**
+
+-   `storeName` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** the name of the FirebaseStore instance to inject
+-   `subscriptions` **...any** 
+
+Returns **FireComponent** a hoc React.Component
