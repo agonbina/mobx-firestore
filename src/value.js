@@ -6,8 +6,11 @@ global.mobx = mobx
 class Value extends ObservableMap {
 
   static defaults = {
+    '.exists': false,
+    '.error': false,
     '.updating': false,
-    '.removing': false
+    '.removing': false,
+    '.loading': false
   }
 
   constructor (ref, defaults = {}) {
@@ -19,20 +22,29 @@ class Value extends ObservableMap {
     })
   }
 
-  @action setValue (value) {
-    if (isObject(value)) {
-      this.merge(value)
-    } else {
-      this.set('.value', value)
+  @action setValue (snap) {
+    const defaults = {
+      '.exists': snap.exists(),
+      '.loading': false
     }
+    let value = snap.val()
+    if (!isObject(value)) {
+      value = {
+        '.value': value
+      }
+    }
+    this.merge(Object.assign({}, value, defaults))
   }
 
-  bind () {
+  @action bind () {
     if (this.subscription) {
       return
     }
+    this.set('.loading', true)
     this.subscription = this.ref.on('value', snap => {
-      this.setValue(snap.val())
+      this.setValue(snap)
+    }, error => {
+      this.set('.error', true)
     })
   }
 
